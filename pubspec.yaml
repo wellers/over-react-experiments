@@ -1,0 +1,17 @@
+name: 'over.react.experiments'
+version: 0.0.1
+description: Experiments with Workiva's Over_React package.
+#author: Paul Welbourne <paul_welbourne@yahoo.co.uk>
+
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+
+dependencies:
+  browser: '>=0.10.0 <0.11.0'
+  dart_to_js_script_rewriter: '^1.0.1'
+  browser_detect: '^1.0.1' 
+  over_react:
+
+transformers:
+  - over_react
+  - $dart2js
