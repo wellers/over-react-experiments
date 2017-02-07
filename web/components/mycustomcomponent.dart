@@ -11,7 +11,7 @@ UiFactory<MyCustomProps> MyCustomComponentFactory;
 class MyCustomProps extends FluxUiProps {
   int waitTimeInSeconds;
   String completeMessage;
-  String defaultContent;  
+  String defaultContent;
 }
 
 @State()
