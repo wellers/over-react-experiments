@@ -36,7 +36,7 @@ class AddContact
 
   @override
   void componentDidMount() {
-    //props.store.controller.stream.listen((Object o) => storeChanged())
+    props.store.controller.stream.listen((Object o) => storeChanged());
     storeChanged();
   }
 
@@ -56,26 +56,18 @@ class AddContact
           ..labelText = "Title"
           ..defaultContent = "1"
           ..content = state.title
-          ..onChange = (String s) => setState(newState()
-            ..title = s
-            ..firstName = state.firstName
-            ..surname = state.surname))(),
+          ..onChange = (String s) => onChange(new Contact(s, state.firstName, state.surname)))(),
         (TextInputFactory()
           ..labelText = "First name"
           ..defaultContent = "2"
           ..content = state.firstName
-          ..onChange = (String s) => setState(newState()
-            ..title = state.title
-            ..firstName = s
-            ..surname = state.surname))(),
+          ..onChange = (String s) => onChange(new Contact(state.title, s, state.surname)))(),
         (TextInputFactory()
           ..labelText = "Surname"
           ..defaultContent = "3"
-          ..content = state.surname
-          ..onChange = (String s) => setState(newState()
-            ..title = state.title
-            ..firstName = state.firstName
-            ..surname = s))());
+          ..content = state.surname          
+          ..onChange = (String s) => onChange(new Contact(state.title, state.firstName, s)))()
+          );         
   }
 
   void onChange(Contact c) {

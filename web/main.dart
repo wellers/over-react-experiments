@@ -6,33 +6,34 @@ import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_client.dart';
 import 'package:over_react/over_react.dart';
 
-import 'components/mycustomcomponent.dart';
+import 'flux/dispatcher.dart';
+import 'flux/actions.dart';
+import 'flux/stores.dart';
+import 'flux/addcontact.dart';
 
-// import 'flux/dispatcher.dart';
-// import 'flux/actions.dart';
-// import 'flux/stores.dart';
-// import 'flux/addcontact.dart';
+// import 'components/mycustomcomponent.dart';
 
-// ReactElement addcontact(d, s) => Dom.div()(
-//  (AddContactFactory()
-//  ..dispatcher = d
-//  ..store = s)());
+// ReactElement test() => Dom.div()(
+//   (MyCustomComponentFactory()
+//   ..waitTimeInSeconds = 10
+//   ..completeMessage = ""
+//   ..defaultContent = "")());
 
-ReactElement test() => Dom.div()(
-  (MyCustomComponentFactory()
-  ..waitTimeInSeconds = 10
-  ..completeMessage = ""
-  ..defaultContent = "")());
+ReactElement addcontact(d, s) => Dom.div()(
+ (AddContactFactory()
+ ..dispatcher = d
+ ..store = s)());
 
 main() {
   // Initialize React within our Dart app
   setClientConfiguration();
-
-  //var dispatcher = new AppDispatcher();
-  //var store = new AddContactStore(dispatcher);
-
+  
   // Mount / render your component. 
-  //react_dom.render(addcontact(dispatcher, store), querySelector('#react_mount_point'));
-  react_dom.render(test(), querySelector('#react_mount_point'));
-  //dispatcher.handleServerAction(new StoreInitialised());
+  // react_dom.render(test(), querySelector('#react_mount_point'));
+
+  var dispatcher = new AppDispatcher();
+  var store = new AddContactStore(dispatcher);
+
+  react_dom.render(addcontact(dispatcher, store), querySelector('#react_mount_point'));
+  dispatcher.handleServerAction(new StoreInitialised());
 }

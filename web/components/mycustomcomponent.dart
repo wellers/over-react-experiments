@@ -41,6 +41,7 @@ class MyCustomComponent
     if (state == null) {
       return (Dom.div())("Loading. Please wait...");
     }
+    
 
     return (Dom.div())(
         (Dom.p())(state.message),
