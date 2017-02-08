@@ -17,25 +17,20 @@ class Contact {
 class AddContactStore {
   final StreamController controller = new StreamController.broadcast();
   final AppDispatcher dispatcher;
+  Contact contact = new Contact("", "", "");
 
   AddContactStore(this.dispatcher) {
-    getInitialState();
     dispatcher.register((message) {
       if (message.action is StoreInitialised) {
-        jsLog('Store Initialised');
-        controller.add(new Object());
+        jsLog('Store Initialised');        
       }
       else if (message.action is EditRequested<Contact>) {
         jsLog('Edit Requested');
         contact = (message.action as EditRequested<Contact>).newState;
-        controller.add(new Object());
       }
+      
+      // trigger OnChange event 
+      controller.add(new Object()); 
     });
-  }
-
-  Contact contact;
-
-  void getInitialState() {
-    contact = new Contact("","","");
-  }
+  }  
 }
