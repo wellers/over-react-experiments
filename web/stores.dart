@@ -16,8 +16,8 @@ class AddContactStore extends Store {
     _contact = new Contact("", "", "");
 
     triggerOnAction(_actions.submitContact, (Contact newState) { 
-      _contact = newState; 
-      print("title: " + newState.title + "; firstname: " + newState.firstName + "; surname: " + newState.surname); });
+      _contact = newState;
+      });
   }  
 }
 
@@ -27,4 +27,13 @@ class Contact {
   String surname;
 
   Contact(String this.title, String this.firstName, String this.surname);
+}
+
+class ViewContactsStore extends Store {
+  List<Contact> _contacts = [ new Contact("Mr", "John", "Smith") ];
+  List<Contact> get contacts => _contacts;
+
+  ViewContactsActions _actions;
+
+  ViewContactsStore(ViewContactsActions this._actions) { }
 }

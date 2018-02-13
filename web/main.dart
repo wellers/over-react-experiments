@@ -10,16 +10,25 @@ import 'package:over_react/over_react.dart';
 import 'actions.dart';
 import 'stores.dart';
 import 'components/addcontact.dart';
+import 'components/viewcontacts.dart';
 
 main() async {    
-  AddContactActions actions = new AddContactActions();
-  AddContactStore store = new AddContactStore(actions);
+  // AddContactActions addContactActions = new AddContactActions();
+  // AddContactStore addContactStore = new AddContactStore(addContactActions);
 
-  ReactElement addcontact() => Dom.div()((AddContact()
-    ..actions = actions
-    ..store = store)());
+  // ReactElement addcontact() => Dom.div()((AddContact()
+  //   ..actions = addContactActions
+  //   ..store = addContactStore)());
   
+  ViewContactsActions viewContactsActions = new ViewContactsActions();
+  ViewContactsStore viewContactsStore = new ViewContactsStore(viewContactsActions);
+
+  ReactElement viewcontacts() => Dom.div()((ViewContacts()
+    ..actions = viewContactsActions
+    ..store = viewContactsStore)());
+
   // Initialize React within our Dart app
   setClientConfiguration();
-  react_dom.render(addcontact(), querySelector('#react_mount_point'));
+  //react_dom.render(addcontact(), querySelector('#react_mount_point'));
+  react_dom.render(viewcontacts(), querySelector('#react_mount_point'));
 }

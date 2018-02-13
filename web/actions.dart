@@ -8,3 +8,7 @@ import 'stores.dart';
 class AddContactActions {
   final Action<Contact> submitContact = new Action<Contact>();
 }
+
+class ViewContactsActions {
+
+}
