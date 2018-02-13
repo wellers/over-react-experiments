@@ -10,8 +10,9 @@ dependencies:
   browser: '>=0.10.0 <0.11.0'
   dart_to_js_script_rewriter: '^1.0.1'
   browser_detect: '^1.0.1' 
-  over_react: '^1.3.0'
+  over_react: '^1.4.0'
 
 transformers:
   - over_react
+  # Reminder: dart2js should come after any other transformers that touch Dart code
   - $dart2js
