@@ -9,6 +9,4 @@ class AddContactActions {
   final Action<Contact> submitContact = new Action<Contact>();
 }
 
-class ViewContactsActions {
-
-}
+class ViewContactsActions { }

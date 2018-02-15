@@ -6,29 +6,68 @@ import 'dart:html';
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_client.dart';
 import 'package:over_react/over_react.dart';
+import 'package:route_hierarchical/client.dart';
 
 import 'actions.dart';
 import 'stores.dart';
+import 'components/home.dart';
 import 'components/addcontact.dart';
 import 'components/viewcontacts.dart';
 
-main() async {    
-  // AddContactActions addContactActions = new AddContactActions();
-  // AddContactStore addContactStore = new AddContactStore(addContactActions);
+Router router = new Router();
 
-  // ReactElement addcontact() => Dom.div()((AddContact()
-  //   ..actions = addContactActions
-  //   ..store = addContactStore)());
-  
-  ViewContactsActions viewContactsActions = new ViewContactsActions();
-  ViewContactsStore viewContactsStore = new ViewContactsStore(viewContactsActions);
-
-  ReactElement viewcontacts() => Dom.div()((ViewContacts()
-    ..actions = viewContactsActions
-    ..store = viewContactsStore)());
+main() async {  
+  router.root
+    ..addRoute(
+        name: 'showViewContacts',
+        path: '/contacts',
+        enter: showViewContacts)
+    ..addRoute(
+        name: 'contact',
+        path: '/contact',
+        mount: (router) => router
+                 ..addRoute(name: 'add', defaultRoute: true, path: '/add', enter: showAddContact))
+    ..addRoute(name: 'home', defaultRoute: true, path: '/', enter: showHome);
+  router.listen();
 
   // Initialize React within our Dart app
   setClientConfiguration();
-  //react_dom.render(addcontact(), querySelector('#react_mount_point'));
+}
+
+void showHome(RouteEvent e) {  
+  ReactElement home() => Dom.div()(
+    (Home()
+      ..router = router
+      )()
+    );
+
+  react_dom.render(home(), querySelector('#react_mount_point'));
+}
+
+void showViewContacts(RouteEvent e) {
+  ViewContactsActions viewContactsActions = new ViewContactsActions();
+  ViewContactsStore viewContactsStore = new ViewContactsStore(viewContactsActions);
+
+  ReactElement viewcontacts() => Dom.div()(
+    (ViewContacts()
+      ..actions = viewContactsActions
+      ..store = viewContactsStore
+      )()
+    );
+
   react_dom.render(viewcontacts(), querySelector('#react_mount_point'));
+}
+
+void showAddContact(RouteEvent e) {
+  AddContactActions addContactActions = new AddContactActions();
+  AddContactStore addContactStore = new AddContactStore(addContactActions);
+
+  ReactElement addcontact() => Dom.div()(
+    (AddContact()
+      ..actions = addContactActions
+      ..store = addContactStore
+      )()
+    );
+  
+  react_dom.render(addcontact(), querySelector('#react_mount_point'));
 }
