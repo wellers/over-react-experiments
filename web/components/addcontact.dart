@@ -2,9 +2,12 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'package:over_react/over_react.dart';
+import 'package:route_hierarchical/client.dart';
 
+import 'header.dart';
 import 'textinput.dart';
 
+import '../apis.dart';
 import '../stores.dart';
 import '../actions.dart';
 
@@ -12,7 +15,9 @@ import '../actions.dart';
 UiFactory<AddContactProps> AddContact;
 
 @Props()
-class AddContactProps extends FluxUiProps<AddContactActions, AddContactStore> {}
+class AddContactProps extends FluxUiProps<AddContactActions, AddContactStore> {
+   Router router;
+}
 
 @State()
 class AddContactState extends UiState {
@@ -38,6 +43,7 @@ class AddContactComponent
       return (Dom.div())("Loading. Please wait...");
 
     return (Dom.div())(
+        (Header()..router = props.router)(),
         (TextInput()
           ..labelText = "Title"
           ..placeholderText = "Please enter..."

@@ -3,7 +3,7 @@
 
 import 'package:w_flux/w_flux.dart';
 
-import 'stores.dart';
+import 'apis.dart';
 
 class AddContactActions {
   final Action<Contact> submitContact = new Action<Contact>();

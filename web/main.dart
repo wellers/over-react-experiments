@@ -8,6 +8,7 @@ import 'package:react/react_client.dart';
 import 'package:over_react/over_react.dart';
 import 'package:route_hierarchical/client.dart';
 
+import 'apis.dart';
 import 'actions.dart';
 import 'stores.dart';
 import 'components/home.dart';
@@ -15,8 +16,13 @@ import 'components/addcontact.dart';
 import 'components/viewcontacts.dart';
 
 Router router = new Router();
+ContactsApi contactsApi = new ContactsApi();
+ViewContactsActions viewContactsActions = new ViewContactsActions();
+AddContactActions addContactActions = new AddContactActions();
+ViewContactsStore viewContactsStore = new ViewContactsStore(viewContactsActions, contactsApi);
+AddContactStore addContactStore = new AddContactStore(addContactActions, contactsApi);
 
-main() async {  
+main() async {    
   router.root
     ..addRoute(
         name: 'showViewContacts',
@@ -45,11 +51,9 @@ void showHome(RouteEvent e) {
 }
 
 void showViewContacts(RouteEvent e) {
-  ViewContactsActions viewContactsActions = new ViewContactsActions();
-  ViewContactsStore viewContactsStore = new ViewContactsStore(viewContactsActions);
-
   ReactElement viewcontacts() => Dom.div()(
     (ViewContacts()
+      ..router = router
       ..actions = viewContactsActions
       ..store = viewContactsStore
       )()
@@ -59,11 +63,9 @@ void showViewContacts(RouteEvent e) {
 }
 
 void showAddContact(RouteEvent e) {
-  AddContactActions addContactActions = new AddContactActions();
-  AddContactStore addContactStore = new AddContactStore(addContactActions);
-
   ReactElement addcontact() => Dom.div()(
     (AddContact()
+      ..router = router
       ..actions = addContactActions
       ..store = addContactStore
       )()

@@ -1,9 +1,10 @@
 // Copyright (c) 2017, Paul Welbourne. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-import 'package:react/react.dart' as react;
 import 'package:over_react/over_react.dart';
 import 'package:route_hierarchical/client.dart';
+
+import 'header.dart';
 
 @Factory()
 UiFactory<HomeProps> Home;
@@ -19,26 +20,9 @@ class HomeComponent
 
   @override
   render() {
-    return (Dom.div()
-      )(
-        (Dom.h1())("OverReact Experiments!"), 
-        (Dom.a()
-          ..href = ""
-          ..onClick = _navigateShowViewContacts
-          )("View Contacts"),
-        " ",
-        (Dom.a()
-          ..href = ""
-          ..onClick = _navigateContactAdd
-          )("Add New Contact"),
-    );
-  }
-
-  _navigateShowViewContacts(react.SyntheticMouseEvent ev) {
-    props.router.go("showViewContacts", {}); 
-  }
-
-  _navigateContactAdd(react.SyntheticMouseEvent ev) {
-    props.router.go("contact.add", {});
+    return Dom.div()(
+      (Header()..router = props.router)(),
+      Dom.div()("This application has been built using Workiva's DartReact.")
+      );
   }
 }

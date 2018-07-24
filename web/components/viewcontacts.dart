@@ -2,7 +2,11 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'package:over_react/over_react.dart';
+import 'package:route_hierarchical/client.dart';
 
+import 'header.dart';
+
+import '../apis.dart';
 import '../stores.dart';
 import '../actions.dart';
 
@@ -10,7 +14,9 @@ import '../actions.dart';
 UiFactory<ViewContactsProps> ViewContacts;
 
 @Props()
-class ViewContactsProps extends FluxUiProps<ViewContactsActions, ViewContactsStore> {}
+class ViewContactsProps extends FluxUiProps<ViewContactsActions, ViewContactsStore> {
+  Router router;
+}
 
 @State()
 class ViewContactsState extends UiState {
@@ -42,15 +48,17 @@ class ViewContactsComponent
       key++;
     });
 
-    return (Dom.table())(
-      (Dom.thead())(
-        (Dom.tr())(
-          (Dom.th())("Title"),
-          (Dom.th())("Firstname"),
-          (Dom.th())("Surname")
-        )
-      ),
-      (Dom.tbody())(rows)
-    );
+    return (Dom.div()(
+      (Header()..router = props.router)(),
+      (Dom.table())(
+        (Dom.thead())(
+          (Dom.tr())(
+            (Dom.th())("Title"),
+            (Dom.th())("Firstname"),
+            (Dom.th())("Surname")
+          )
+        ),
+        (Dom.tbody())(rows)
+      )));
   }
 }
